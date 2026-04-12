@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSA Infotech — Student Management</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-brand">🎓 VSA Infotech</div>
+    <div class="nav-info">
+        <span>vsainfotech.publicvm.com</span>
+        <span class="status-dot">● Live</span>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Student Management System</h1>
+        <p>Deployed on AWS EC2 with Jenkins CI/CD Pipeline</p>
+        <div class="stats">
+            <div class="stat-card">
+                <h2><%= count %></h2>
+                <p>Total Students</p>
+            </div>
+            <div class="stat-card">
+                <h2>✅</h2>
+                <p>System Online</p>
+            </div>
+            <div class="stat-card">
+                <h2>🍃</h2>
+                <p>MongoDB Atlas</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Student Form -->
+    <div class="card">
+        <h2>➕ Add New Student</h2>
+        <form action="/add-student" method="POST" class="form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Student Name</label>
+                    <input type="text" name="name" placeholder="Enter full name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label>Course</label>
+                    <input type="text" name="course" placeholder="e.g. DevOps, Cloud">
+                </div>
+            </div>
+            <button type="submit" class="btn-add">Add Student</button>
+        </form>
+    </div>
+
+    <!-- Students Table -->
+    <div class="card">
+        <h2>📋 Student List</h2>
+        <% if (students.length === 0) { %>
+            <div class="empty-state">
+                <p>🎓 No students yet. Add your first student above!</p>
+            </div>
+        <% } else { %>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Course</th>
+                        <th>Added On</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% students.forEach((s, i) => { %>
+                    <tr>
+                        <td><%= i + 1 %></td>
+                        <td><strong><%= s.name %></strong></td>
+                        <td><%= s.email %></td>
+                        <td><span class="badge"><%= s.course %></span></td>
+                        <td><%= s.created_at ? s.created_at.substring(0, 10) : 'N/A' %></td>
+                        <td>
+                            <form action="/delete-student/<%= s._id %>" method="POST"
+                                  onsubmit="return confirm('Delete this student?')">
+                                <button type="submit" class="btn-delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <% } %>
+    </div>
+
+    <!-- Architecture Info -->
+    <div class="card arch-card">
+        <h2>🏗️ Deployment Architecture</h2>
+        <div class="arch-grid">
+            <div class="arch-item">
+                <h3>🖥️ AWS EC2</h3>
+                <p>Ubuntu 22.04 LTS<br>t2.micro Instance<br>IP: 13.233.65.149</p>
+            </div>
+            <div class="arch-item">
+                <h3>🐍 Flask Backend</h3>
+                <p>Python 3<br>Gunicorn Server<br>Port: 5000</p>
+            </div>
+            <div class="arch-item">
+                <h3>⚡ Express Frontend</h3>
+                <p>Node.js 18<br>EJS Templates<br>Port: 3000</p>
+            </div>
+            <div class="arch-item">
+                <h3>🍃 MongoDB Atlas</h3>
+                <p>Cloud Database<br>Auto Backup<br>Cluster: Nilesh</p>
+            </div>
+            <div class="arch-item">
+                <h3>🔧 Jenkins CI/CD</h3>
+                <p>Auto Deploy<br>GitHub Webhook<br>Port: 8080</p>
+            </div>
+            <div class="arch-item">
+                <h3>🌐 Nginx</h3>
+                <p>Reverse Proxy<br>Domain Routing<br>vsainfotech.publicvm.com</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2024 VSA Infotech | Deployed on AWS EC2 | Jenkins CI/CD Pipeline</p>
+</footer>
+
+</body>
+</html>
