@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/YOUR-USERNAME/express-frontend.git'
+                    url: 'https://github.com/NileshKaklij-cloud/express-frontend-jenkins.git'
             }
         }
         stage('Install') {
