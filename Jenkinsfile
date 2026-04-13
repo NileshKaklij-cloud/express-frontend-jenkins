@@ -3,19 +3,13 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git branch: 'main',
-                url: 'https://github.com/NileshKaklij-cloud/express-frontend-jenkins.git'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 sh '''
+                rm -rf /var/www/express-frontend/*
+                cp -r $WORKSPACE/* /var/www/express-frontend/
                 cd /var/www/express-frontend
-                sudo chown -R ubuntu:ubuntu /var/www/express-frontend
-                npm install
+                npm install --production
                 '''
             }
         }
