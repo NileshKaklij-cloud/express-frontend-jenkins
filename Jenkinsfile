@@ -6,7 +6,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/NileshKakliji-cloud/express-frontend-jenkins.git'
+                url: 'https://github.com/NileshKaklij-cloud/express-frontend-jenkins.git'
             }
         }
 
